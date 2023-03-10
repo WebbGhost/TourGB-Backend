@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "outDir": "dist",
+    "sourceMap": true,
+
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitAny": true,
+    "strict": true,
+    "target": "es2022",
+    "skipLibCheck": true
+  },
+  "include": ["src", "./.eslintrc.js"]
+}
