@@ -4,9 +4,10 @@ import dotenv from 'dotenv';
 import helmet from 'helmet';
 import cors from 'cors';
 import mongoSanitize from 'express-mongo-sanitize';
-
 import rateLimit from 'express-rate-limit';
 import cookieParser from 'cookie-parser';
+import hpp from 'hpp';
+import xss from 'xss-clean';
 
 import * as middlewares from './helpers/middlewares';
 import { ResponseBack } from './interfaces/MessageResponse';
@@ -35,12 +36,13 @@ dotenv.config();
 app.disable('x-powered-by');
 
 const limiter = rateLimit({
-  max: 100,
+  max: 500,
   windowMs: 60 * 60 * 1000,
   message: 'Too many requests from this IP, please try again in an hour!',
 });
 app.use('/api', limiter);
-
+app.use(xss());
+app.use(hpp({ whiteList: ['duration'] }));
 // Routes
 app.use((req: Request, res: Response, next: NextFunction) => {
   req.requestTime = new Date().toISOString();

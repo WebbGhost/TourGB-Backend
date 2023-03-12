@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import validator from 'validator';
 import bcrypt from 'bcrypt';
+import crypto from 'crypto';
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -16,6 +17,11 @@ const userSchema = new mongoose.Schema({
   },
   photo: {
     type: String,
+  },
+  role: {
+    type: String,
+    enum: ['user', 'guide', 'lead-guide', 'admin'],
+    default: 'user',
   },
   password: {
     type: String,
@@ -33,7 +39,18 @@ const userSchema = new mongoose.Schema({
       message: 'Password do not match',
     },
   },
+  active: {
+    type: Boolean,
+    default: false,
+    select: false,
+  },
   passwordChangedAt: {
+    type: Date,
+  },
+  passwordResetToken: {
+    type: String,
+  },
+  passwordResetExpires: {
     type: Date,
   },
 });
@@ -43,6 +60,15 @@ userSchema.pre('save', async function (next) {
 
   this.password = await bcrypt.hash(this.password, 12);
   this.passwordConfirm = undefined;
+  next();
+});
+userSchema.pre(/^find/, function (next) {
+  this.find({ active: { $ne: false } });
+  next();
+});
+userSchema.pre('save', async function (next) {
+  if (!this.isModified('password') || this.isNew) return next();
+  this.passwordChangedAt = Date.now() - 1000;
   next();
 });
 userSchema.methods.comparePasswords = function (
@@ -57,6 +83,12 @@ userSchema.methods.changePasswordLast = function (JWTTimeStamp) {
     return JWTTimeStamp < changeTime;
   }
   return false;
+};
+userSchema.methods.forgertPassswordToken = async function () {
+  const resetToken = await crypto.randomUUID().toString();
+  this.passwordResetToken = resetToken;
+  this.passwordResetExpires = Date.now() + 10 * 60 * 1000;
+  return resetToken;
 };
 const User = mongoose.model('User', userSchema);
 export default User;

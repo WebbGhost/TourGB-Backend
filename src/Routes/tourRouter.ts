@@ -7,7 +7,7 @@ import {
   topFiveTours,
   updateTour,
 } from '../Controllers/tourController';
-import { protect } from '../Controllers/authController';
+import { protect, restriced } from '../Controllers/authController';
 
 const router = Router();
 router.route('/top-5-tours').get(protect, topFiveTours);
@@ -15,7 +15,7 @@ router.route('/').get(protect, getAllTours).post(protect, createTour);
 router
   .route('/:id')
   .get(protect, getTour)
-  .patch(protect, updateTour)
-  .delete(protect, deleteTour);
+  .patch(protect, restriced('admin', 'lead-guide'), updateTour)
+  .delete(protect, restriced('admin', 'lead-guide'), deleteTour);
 
 export default router;

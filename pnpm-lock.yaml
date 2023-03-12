@@ -6,6 +6,7 @@ specifiers:
   '@types/express': ^4.17.15
   '@types/morgan': ^1.9.4
   '@types/node': ^18.11.18
+  '@types/nodemailer': ^6.4.7
   '@types/validator': ^13.7.13
   '@typescript-eslint/eslint-plugin': ^5.48.2
   '@typescript-eslint/parser': ^5.48.2
@@ -24,14 +25,17 @@ specifiers:
   express-mongo-sanitize: ^2.2.0
   express-rate-limit: ^6.7.0
   helmet: ^6.0.1
+  hpp: ^0.2.3
   jsonwebtoken: ^9.0.0
   mongoose: ^6.8.4
   morgan: ^1.10.0
+  nodemailer: ^6.9.1
   prettier: ^2.8.3
   ts-node: ^10.9.1
   ts-node-dev: ^2.0.0
   typescript: ^4.9.4
   validator: ^13.9.0
+  xss-clean: ^0.1.1
   zod: ^3.20.2
 
 dependencies:
@@ -43,10 +47,13 @@ dependencies:
   express-mongo-sanitize: 2.2.0
   express-rate-limit: 6.7.0_express@4.18.2
   helmet: 6.0.1
+  hpp: 0.2.3
   jsonwebtoken: 9.0.0
   mongoose: 6.8.4
   morgan: 1.10.0
+  nodemailer: 6.9.1
   validator: 13.9.0
+  xss-clean: 0.1.1
   zod: 3.20.2
 
 devDependencies:
@@ -55,6 +62,7 @@ devDependencies:
   '@types/express': 4.17.15
   '@types/morgan': 1.9.4
   '@types/node': 18.11.18
+  '@types/nodemailer': 6.4.7
   '@types/validator': 13.7.13
   '@typescript-eslint/eslint-plugin': 5.48.2_caon6io6stgpr7lz2rtbhekxqy
   '@typescript-eslint/parser': 5.48.2_7uibuqfxkfaozanbtbziikiqje
@@ -1089,6 +1097,12 @@ packages:
 
   /@types/node/18.11.18:
     resolution: {integrity: sha512-DHQpWGjyQKSHj3ebjFI/wRKcqQcdR+MoFBygntYOZytCqNfkd2ZC4ARDJ2DQqhjH5p85Nnd3jhUJIXrszFX/JA==}
+
+  /@types/nodemailer/6.4.7:
+    resolution: {integrity: sha512-f5qCBGAn/f0qtRcd4SEn88c8Fp3Swct1731X4ryPKqS61/A3LmmzN8zaEz7hneJvpjFbUUgY7lru/B/7ODTazg==}
+    dependencies:
+      '@types/node': 18.11.18
+    dev: true
 
   /@types/qs/6.9.7:
     resolution: {integrity: sha512-FGa1F62FT09qcrueBA6qYTrJPVDzah9a+493+o2PCXsesWHIn27G98TsSMs3WPNbZIEj4+VJf6saSFpvD+3Zsw==}
@@ -2449,6 +2463,14 @@ packages:
     engines: {node: '>=14.0.0'}
     dev: false
 
+  /hpp/0.2.3:
+    resolution: {integrity: sha512-4zDZypjQcxK/8pfFNR7jaON7zEUpXZxz4viyFmqjb3kWNWAHsLEUmWXcdn25c5l76ISvnD6hbOGO97cXUI3Ryw==}
+    engines: {node: '>=0.10.0'}
+    dependencies:
+      lodash: 4.17.21
+      type-is: 1.6.18
+    dev: false
+
   /http-errors/2.0.0:
     resolution: {integrity: sha512-FtwrG/euBzaEjYeRqOgly7G0qviiXoJWnvEH2Z1plBdXgbyjv34pHTSb9zoeHMyDy33+DWy5Wt9Wo+TURtOYSQ==}
     engines: {node: '>= 0.8'}
@@ -2955,6 +2977,11 @@ packages:
         optional: true
     dependencies:
       whatwg-url: 5.0.0
+    dev: false
+
+  /nodemailer/6.9.1:
+    resolution: {integrity: sha512-qHw7dOiU5UKNnQpXktdgQ1d3OFgRAekuvbJLcdG5dnEo/GtcTHRYM7+UfJARdOFU9WUQO8OiIamgWPmiSFHYAA==}
+    engines: {node: '>=6.0.0'}
     dev: false
 
   /nopt/5.0.0:
@@ -3782,6 +3809,16 @@ packages:
 
   /wrappy/1.0.2:
     resolution: {integrity: sha512-l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ==}
+
+  /xss-clean/0.1.1:
+    resolution: {integrity: sha512-On99yydxoAEkHpraR7Wjg9cD6UmKfbtH2HXO1it2djid32osHL7Qr8bIu+dGYoOeKzf3ZszLfz1gwR/D7whZ2A==}
+    dependencies:
+      xss-filters: 1.2.6
+    dev: false
+
+  /xss-filters/1.2.6:
+    resolution: {integrity: sha512-uqgwZRpVJCDfHsRX9lDrkPyCitQYzPklmLSbajJncATZKAUd1tF1x9y2VyPNFMv8SsSWed80xorSS5qGpw3WiA==}
+    dev: false
 
   /xtend/4.0.2:
     resolution: {integrity: sha512-LKYU1iAXJXUgAXn9URjiu+MWhyUXHsvfp7mcuYm9dSUKK0/CjtrUwFAxD82/mCWbtLsGjFIad0wIsod4zrTAEQ==}
